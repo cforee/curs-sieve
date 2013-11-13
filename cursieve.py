@@ -19,6 +19,10 @@ def down(location):
   location["y"] += 1
 def left(location):
   location["x"] -= 1
+def forward(location):
+  location["z"] += 1
+def backward(location):
+  location["z"] -= 1
 
 # render the screen
 def render(map_context):
@@ -27,7 +31,8 @@ def render(map_context):
 # define starting location
 location = {
   "x":42,
-  "y":42
+  "y":42,
+  "z":42
 }
 
 # map keypress to movement
@@ -35,13 +40,15 @@ actions = {
   "i":up,
   "k":right,
   "m":down,
-  "j":left
+  "j":left,
+  "a":forward,
+  "z":backward
 }
 
 # start main program loop
 print "\n\n=== Use i,k,m,j to move around ===\n"
 
-try:	
+try:  
   while True:
     try:
       render(location)
@@ -50,5 +57,5 @@ try:
         actions[keypress](location)
     except IOError: pass
 finally:
-    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+  termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+  fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
